@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import sun.awt.image.IntegerInterleavedRaster;
 import views.*;
 
 /**
@@ -34,23 +35,38 @@ public class ControllerRegistroEmpleados {
     
     public void getValores(){
         view_registro_empleados.jtf_empleado_id.setText(""+model_registro_empleados.getEmpleado_id());
-        view_registro_empleados.jtf_nombre_producto.setText(model_registro_productos.getNombre_Producto());
-        view_registro_empleados.jcb_tamano.setSelectedItem(model_registro_productos.getTamaño());
-        view_registro_empleados.jtf_precio.setText(""+model_registro_productos.getPrecio_Unitario());
+        view_registro_empleados.jtf_nombre.setText(model_registro_empleados.getNombre_Empleado());
+        view_registro_empleados.jtf_apellido_paterno.setText(model_registro_empleados.getApellido_Paterno());
+        view_registro_empleados.jtf_apellido_materno.setText(model_registro_empleados.getApellido_Materno());
+        view_registro_empleados.jtf_edad.setText(""+model_registro_empleados.getEdad());
+        view_registro_empleados.jtf_telefono.setText(""+model_registro_empleados.getTelefono());
+        view_registro_empleados.jcb_genero.setSelectedItem(model_registro_empleados.getGenero());
+        view_registro_empleados.jcb_cargo.setSelectedItem(model_registro_empleados.getCargo());
+        view_registro_empleados.jtf_direccion.setText(model_registro_empleados.getDireccion());
     }
     
     public void setValores(){
-        model_registro_productos.setProducto_ID(Integer.parseInt(view_registro_productos.jtf_producto_id.getText()));
-        model_registro_productos.setNombre_Producto(view_registro_productos.jtf_nombre_producto.getText());
-        model_registro_productos.setTamaño(""+view_registro_productos.jcb_tamano.getSelectedItem());
-        model_registro_productos.setPrecio_Unitario(Integer.parseInt(view_registro_productos.jtf_precio.getText()));
+        model_registro_empleados.setEmpleado_id(Integer.parseInt(view_registro_empleados.jtf_empleado_id.getText()));
+        model_registro_empleados.setNombre_Empleado(view_registro_empleados.jtf_nombre.getText());
+        model_registro_empleados.setApellido_Paterno(view_registro_empleados.jtf_apellido_paterno.getText());
+        model_registro_empleados.setApellido_Materno(view_registro_empleados.jtf_apellido_materno.getText());
+        model_registro_empleados.setEdad(Integer.parseInt(view_registro_empleados.jtf_edad.getText()));
+        model_registro_empleados.setTelefono(Integer.parseInt(view_registro_empleados.jtf_telefono.getText()));
+        model_registro_empleados.setGenero(""+view_registro_empleados.jcb_genero.getSelectedItem());
+        model_registro_empleados.setCargo(""+view_registro_empleados.jcb_cargo.getSelectedItem());
+        model_registro_empleados.setDireccion(view_registro_empleados.jtf_direccion.getText());
     }
     
     public void jbtn_nuevo_clic(){
-        view_registro_productos.jtf_producto_id.setText("");
-        view_registro_productos.jtf_nombre_producto.setText("");
-        view_registro_productos.jcb_tamano.setSelectedItem("Chico");
-        view_registro_productos.jtf_precio.setText("");
+        view_registro_empleados.jtf_empleado_id.setText("");
+        view_registro_empleados.jtf_nombre.setText("");
+        view_registro_empleados.jtf_apellido_paterno.setText("");
+        view_registro_empleados.jtf_apellido_materno.setText("");
+        view_registro_empleados.jtf_edad.setText("");
+        view_registro_empleados.jtf_telefono.setText("");
+        view_registro_empleados.jcb_genero.setSelectedItem(this);
+        view_registro_empleados.jcb_cargo.setSelectedItem(this);
+        view_registro_empleados.jtf_direccion.setText("");
     }
     
     public void jbtn_modificar_clic(){
@@ -61,7 +77,7 @@ public class ControllerRegistroEmpleados {
     
     public void jbtn_guardar_clic(){
         setValores();
-        model_registro_empleados.modificar();
+        model_registro_empleados.guardar();
         getValores();
     }
     
