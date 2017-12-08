@@ -27,7 +27,7 @@ public class ControllerRegistroEmpleados {
     }
     
     public void initView(){
-        model_registro_empleados.conectar();
+        model_registro_empleados.Conectar();
         view_registro_empleados.setVisible(true);
         model_registro_empleados.moverPrimero();
         getValores();

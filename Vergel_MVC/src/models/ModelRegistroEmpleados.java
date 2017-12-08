@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package models;
 
 import java.sql.Connection;
@@ -13,10 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Vicente Arteaga
- */
 public class ModelRegistroEmpleados {
     private Connection conexion;
     private Statement st;
@@ -106,16 +98,12 @@ public class ModelRegistroEmpleados {
         return direccion;
     }
     
-    public void conectar(){
-        try{
-            Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Vergel","postgres","12345678");
-            st = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error 101");   
-        }
-        catch(ClassNotFoundException f){
-            JOptionPane.showMessageDialog(null,"error al conectar");
+    public void Conectar() {
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/Vergel", "root", "ninoinkieto1");
+            st = conexion.createStatement();
+        } catch (SQLException err) {
+            JOptionPane.showMessageDialog(null, "Error 101");
         }
     }
     public void llenarValores(){
