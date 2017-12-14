@@ -27,24 +27,31 @@ public class ViewAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmi_registro_productos = new javax.swing.JMenuItem();
+        jmi_registro_empleados = new javax.swing.JMenuItem();
+        jmi_registro_cargo = new javax.swing.JMenuItem();
+        jmi_salir = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Productos");
-        jMenu1.add(jMenuItem1);
+        jmi_registro_productos.setText("Productos");
+        jMenu1.add(jmi_registro_productos);
 
-        jMenuItem2.setText("Empleados");
-        jMenu1.add(jMenuItem2);
+        jmi_registro_empleados.setText("Empleados");
+        jMenu1.add(jmi_registro_empleados);
 
-        jMenuItem3.setText("Cargo");
-        jMenu1.add(jMenuItem3);
+        jmi_registro_cargo.setText("Cargo");
+        jMenu1.add(jmi_registro_cargo);
+
+        jmi_salir.setText("Salir");
+        jMenu1.add(jmi_salir);
 
         jMenuBar1.add(jMenu1);
 
@@ -100,10 +107,12 @@ public class ViewAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    public javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    public javax.swing.JMenuItem jmi_registro_cargo;
+    public javax.swing.JMenuItem jmi_registro_empleados;
+    public javax.swing.JMenuItem jmi_registro_productos;
+    private javax.swing.JMenuItem jmi_salir;
     // End of variables declaration//GEN-END:variables
 }

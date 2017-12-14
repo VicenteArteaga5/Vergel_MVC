@@ -9,6 +9,6 @@ package models;
  *
  * @author vicente
  */
-public class ModeloAdministrador {
+public class ModelVenta {
     
 }

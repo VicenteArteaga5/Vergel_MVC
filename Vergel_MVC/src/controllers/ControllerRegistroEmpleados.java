@@ -1,18 +1,14 @@
 package controllers;
 
 import models.*;
-import sun.awt.image.IntegerInterleavedRaster;
 import views.*;
 
-/**
- *
- * @author Vicente Arteaga
- */
+
 public class ControllerRegistroEmpleados {
     private ModelRegistroEmpleados model_registro_empleados;
     private ViewRegistroEmpleados view_registro_empleados;
     
-    public void ControllerPeronas(ModelRegistroEmpleados model_registro_empleados, ViewRegistroEmpleados view_registro_empleados){
+    public void controller_registro_empelados(ModelRegistroEmpleados model_registro_empleados, ViewRegistroEmpleados view_registro_empleados){
         this.model_registro_empleados = model_registro_empleados;
         this.view_registro_empleados = view_registro_empleados;
         this.view_registro_empleados.jbtn_primero.addActionListener(e->jbtn_primero_clic());
