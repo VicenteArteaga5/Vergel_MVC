@@ -19,16 +19,16 @@ public class ModelMain {
     private ResultSet rs;
     private String sql;
     
-    private MessageDigest vergel;
+    private MessageDigest md5;
     private StringBuilder string_builder;
     
     public void Conectar(){
-         try{ 
-            conexion=DriverManager.getConnection("jdbc:mysql://localhost/VergelActual","root","ninoinkieto1");                     
-            st=conexion.createStatement(); 
-        }catch(SQLException err){ 
-            JOptionPane.showMessageDialog(null,"Error "+err.getMessage()); 
-        } 
+         try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/VergelActual", "root", "ninoinkieto1");
+            st = conexion.createStatement();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error 101: No conceta la base de datos Cargo"+e);
+        }
     }
     
     public void Ejecutar_Consulta() {
@@ -77,8 +77,8 @@ public class ModelMain {
     
     public String Cifrar(String texto, String tipo_cifrado){
         try{
-            vergel = MessageDigest.getInstance(tipo_cifrado);
-            byte[] auxiliar_cifrado = vergel.digest(texto.getBytes());
+            md5 = MessageDigest.getInstance(tipo_cifrado);
+            byte[] auxiliar_cifrado = md5.digest(texto.getBytes());
             string_builder = new StringBuilder();
             for(int x = 0; x < auxiliar_cifrado.length; x ++){
                 string_builder.append(Integer.toHexString((auxiliar_cifrado[x] & 0xFF) | 0x100).substring(1,3));

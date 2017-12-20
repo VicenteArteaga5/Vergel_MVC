@@ -7,14 +7,14 @@ package views;
 
 /**
  *
- * @author Vicente Arteaga
+ * @author vicente
  */
-public class ViewRegistroProductos extends javax.swing.JPanel {
+public class ViewRegistroUsuarios extends javax.swing.JPanel {
 
     /**
-     * Creates new form ViewRegistroProductos
+     * Creates new form ViewRegistrarUsuarios
      */
-    public ViewRegistroProductos() {
+    public ViewRegistroUsuarios() {
         initComponents();
     }
 
@@ -32,12 +32,8 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
         jbtn_regresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jl_empleadoid = new javax.swing.JLabel();
-        jl_nombre = new javax.swing.JLabel();
         jl_apellido_paterno = new javax.swing.JLabel();
-        jl_apellido_materno = new javax.swing.JLabel();
-        jtf_producto_id = new javax.swing.JTextField();
-        jtf_nombre_producto = new javax.swing.JTextField();
-        jtf_precio = new javax.swing.JTextField();
+        jtf_usuario = new javax.swing.JTextField();
         jbtn_primero = new javax.swing.JButton();
         jbtn_anterior = new javax.swing.JButton();
         jbtn_siguiente = new javax.swing.JButton();
@@ -47,14 +43,16 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
         jbtn_guardar = new javax.swing.JButton();
         jbtn_nuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jt_productos = new javax.swing.JTable();
-        jcb_tamano = new javax.swing.JComboBox<>();
+        jTable1 = new javax.swing.JTable();
+        jpf_contraseña = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jcb_rol = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 102));
         jPanel1.setAutoscrolls(true);
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
-        jLabel1.setText("Registro de Productos");
+        jLabel1.setText("Registro De Usuarios");
 
         jbtn_regresar.setText("regresar");
 
@@ -69,7 +67,7 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtn_regresar)
-                .addContainerGap())
+                .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,20 +81,11 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setAutoscrolls(true);
 
-        jl_empleadoid.setText("ProductoID:");
+        jl_empleadoid.setText("Usuario:");
 
-        jl_nombre.setText("Nombre:");
+        jl_apellido_paterno.setText("Contraseña;");
 
-        jl_apellido_paterno.setText("Tamaño:");
-
-        jl_apellido_materno.setText("Precio:");
-
-        jtf_producto_id.setEditable(false);
-        jtf_producto_id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        jtf_nombre_producto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        jtf_precio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtf_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jbtn_primero.setText("|<");
 
@@ -114,7 +103,7 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
 
         jbtn_nuevo.setText("Nuevo");
 
-        jt_productos.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -125,36 +114,30 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jt_productos);
+        jScrollPane1.setViewportView(jTable1);
 
-        jcb_tamano.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chico", "Mediano", "Grande" }));
-        jcb_tamano.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.setText("Rol:");
+
+        jcb_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1-Administradoor", "2-Vendedor" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 815, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jl_apellido_paterno)
-                            .addComponent(jl_empleadoid))
+                            .addComponent(jl_empleadoid)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtf_producto_id, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jcb_tamano, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_nombre)
-                            .addComponent(jl_apellido_materno))
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtf_nombre_producto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jtf_precio))
-                        .addGap(82, 82, 82)
+                            .addComponent(jtf_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(jpf_contraseña)
+                            .addComponent(jcb_rol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(208, 208, 208)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jbtn_primero)
@@ -172,29 +155,30 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
                                 .addComponent(jbtn_eliminar))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
-                                .addComponent(jbtn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                .addComponent(jbtn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(8, 8, 8)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jl_empleadoid)
-                            .addComponent(jl_nombre)
-                            .addComponent(jtf_producto_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtf_nombre_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtf_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jl_apellido_paterno)
-                            .addComponent(jl_apellido_materno)
-                            .addComponent(jtf_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcb_tamano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jpf_contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jcb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbtn_primero)
                             .addComponent(jbtn_anterior)
@@ -205,11 +189,11 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
                             .addComponent(jbtn_guardar)
                             .addComponent(jbtn_modificar)
                             .addComponent(jbtn_eliminar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addComponent(jbtn_nuevo)))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -223,18 +207,20 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable jTable1;
     public javax.swing.JButton jbtn_anterior;
     public javax.swing.JButton jbtn_eliminar;
     public javax.swing.JButton jbtn_guardar;
@@ -244,14 +230,10 @@ public class ViewRegistroProductos extends javax.swing.JPanel {
     public javax.swing.JButton jbtn_regresar;
     public javax.swing.JButton jbtn_siguiente;
     public javax.swing.JButton jbtn_ultimo;
-    public javax.swing.JComboBox<String> jcb_tamano;
-    private javax.swing.JLabel jl_apellido_materno;
+    public javax.swing.JComboBox<String> jcb_rol;
     private javax.swing.JLabel jl_apellido_paterno;
     private javax.swing.JLabel jl_empleadoid;
-    private javax.swing.JLabel jl_nombre;
-    public javax.swing.JTable jt_productos;
-    public javax.swing.JTextField jtf_nombre_producto;
-    public javax.swing.JTextField jtf_precio;
-    public javax.swing.JTextField jtf_producto_id;
+    public javax.swing.JPasswordField jpf_contraseña;
+    public javax.swing.JTextField jtf_usuario;
     // End of variables declaration//GEN-END:variables
 }

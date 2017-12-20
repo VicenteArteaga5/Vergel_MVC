@@ -1,6 +1,6 @@
-
 package models;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 public class ModelRegistroEmpleados {
     private Connection conexion;
@@ -21,10 +23,11 @@ public class ModelRegistroEmpleados {
     private String apellido_paterno;
     private String apellido_materno;
     private int edad;
-    private int telefono;
+    private String telefono;
     private String genero;
     private String cargo;
     private String direccion;
+    private TableModel tabla;
     
     public void setEmpleado_id(int empleado_id){
         this.empleado_id = empleado_id;
@@ -46,7 +49,7 @@ public class ModelRegistroEmpleados {
         this.edad = edad;
     }
     
-    public void setTelefono(int telefono){
+    public void setTelefono(String telefono){
         this.telefono = telefono;
     }
     
@@ -82,7 +85,7 @@ public class ModelRegistroEmpleados {
         return edad;
     }
     
-    public int getTelefono(){
+    public String getTelefono(){
         return telefono;
     }
     
@@ -97,13 +100,17 @@ public class ModelRegistroEmpleados {
     public String getDireccion(){
         return direccion;
     }
-    
+
+    public TableModel getTabla() {
+        return tabla;
+    }
+     
     public void Conectar() {
         try {
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost/Vergel", "root", "ninoinkieto1");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/VergelActual", "root", "ninoinkieto1");
             st = conexion.createStatement();
         } catch (SQLException err) {
-            JOptionPane.showMessageDialog(null, "Error 101");
+            JOptionPane.showMessageDialog(null, "Error 101: No conceta la base de datos Empleados"+err);
         }
     }
     public void llenarValores(){
@@ -113,12 +120,13 @@ public class ModelRegistroEmpleados {
             setApellido_Paterno(rs.getString("apellido_paterno"));
             setApellido_Materno(rs.getString("apellido_materno"));
             setEdad(rs.getInt("edad"));
-            setTelefono(rs.getInt("telefono"));
             setGenero(rs.getString("genero"));
-            setCargo(rs.getString("cargo"));
             setDireccion(rs.getString("direccion"));
+            setTelefono(rs.getString("telefono"));
+            setCargo(rs.getString("cargo_id"));
+            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 102");   
+            JOptionPane.showMessageDialog(null, "Error 102 Empledaos" + ex);
         }
     }
     
@@ -127,7 +135,7 @@ public class ModelRegistroEmpleados {
              rs.first();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 103");
+             JOptionPane.showMessageDialog(null,"Error 103"+ex);
          }
      }
     public void moverUltimo(){
@@ -135,7 +143,7 @@ public class ModelRegistroEmpleados {
              rs.last();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 104");
+             JOptionPane.showMessageDialog(null,"Error 104"+ex);
          }
      }
     
@@ -145,7 +153,7 @@ public class ModelRegistroEmpleados {
                  rs.next();
                  llenarValores();
          }} catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 105");
+             JOptionPane.showMessageDialog(null,"Error 105"+ex);
          }
      }
     
@@ -155,70 +163,96 @@ public class ModelRegistroEmpleados {
                  rs.previous();
                  llenarValores();} 
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 106");
+             JOptionPane.showMessageDialog(null,"Error 106"+ex);
          }
      }
     
     public void seleccionarTodos(){
         try {
-            sql="select * from Empleados;";
+            Conectar();
+            sql="select * from Empleado;";
             ps=conexion.prepareStatement(sql);
             rs=ps.executeQuery();
             moverPrimero();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 107");
+            JOptionPane.showMessageDialog(null,"Error 107"+ex);
         }
     }
     
     public void guardar(){
         try {
-            sql="Insert into Empleados(nombre_empleado,apellido_paterno,apellido_materno,edad,telefono,cargo,genero,direccion) values (?,?,?,?,?,?,?,?);";
+            sql="Insert into Empleado(nombre_empleado,apellido_paterno,apellido_materno,edad,telefono,cargo_id,genero,direccion) values (?,?,?,?,?,?,?,?);";
             ps=conexion.prepareStatement(sql);
-            ps.setString(0,nombre_empleado);
-            ps.setString(1,apellido_paterno);
-            ps.setString(2,apellido_materno);
-            ps.setInt(3,edad);
-            ps.setInt(4,telefono);
-            ps.setString(5,cargo);
-            ps.setString(5,genero);
-            ps.setString(7,direccion);
-            ps.executeQuery();
-            moverPrimero();
+            ps.setString(1,nombre_empleado);
+            ps.setString(2,apellido_paterno);
+            ps.setString(3,apellido_materno);
+            ps.setInt(4,edad);
+            ps.setString(5,telefono);
+            ps.setString(6,cargo);
+            ps.setString(7,genero);
+            ps.setString(8,direccion);
+            ps.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 108");
+            JOptionPane.showMessageDialog(null,"Error 108"+ex);
         }
     }
     
     public void modificar(){
         try {
-            sql="update Empleados SET nombre_empleado=?,apellido_paterno=?,apellido_materno=?,edad=?,telefono=?,cargo=?,genero=?,direccion=? WHERE empleado_id=?;";
+            sql="update Empleado SET nombre_empleado=?,apellido_paterno=?,apellido_materno=?,edad=?,telefono=?,cargo_id=?,genero=?,direccion=? WHERE empleado_id=?;";
             ps=conexion.prepareStatement(sql);
-            ps.setString(0,nombre_empleado);
-            ps.setString(1,apellido_paterno);
-            ps.setString(2,apellido_materno);
-            ps.setInt(3,edad);
-            ps.setInt(4,telefono);
-            ps.setString(5,cargo);
-            ps.setString(5,genero);
+            ps.setString(1,nombre_empleado);
+            ps.setString(2,apellido_paterno);
+            ps.setString(3,apellido_materno);
+            ps.setInt(4,edad);
+            ps.setString(5,telefono);
+            ps.setString(6,genero);
             ps.setString(7,direccion);
+            ps.setString(8,cargo);
             ps.executeUpdate();
-            moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 109");
+            JOptionPane.showMessageDialog(null,"Error 109"+ex);
         }
     }
     
     public void eliminar(){
         try {
-            sql="delete from Empleados where empleado_id=?;";
+            sql="delete from Empleado where empleado_id=?;";
             ps=conexion.prepareStatement(sql);
-            ps.setInt(0, empleado_id);
+            ps.setInt(1, empleado_id);
             ps.executeUpdate();
             moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 110");
+            JOptionPane.showMessageDialog(null,"Error 110"+ex);
         }
     }
+    
+        public void tabla(){
+    try{
+        Conectar();
+        rs=st.executeQuery("Select * from Empleado;");
+        tabla= DbUtils.resultSetToTableModel(rs);
+        seleccionarTodos();
+        llenarValores();
+    } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "Error " + err);
+        }
+    }
+        
+        public void LlenarComboBox(javax.swing.JComboBox jcb_cargo){
+            try {
+                Conectar();
+                sql= "select cargo from Cargo;";
+                ps=conexion.prepareStatement(sql);
+                rs=ps.executeQuery();
+                jcb_cargo.removeAllItems();
+                while(rs.next()){
+                    jcb_cargo.addItem(rs.getString("cargo"));
+                }
+            } catch (Exception e) {
+                //
+            }
+}
 }

@@ -29,12 +29,14 @@ public class ViewMain extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmi_login = new javax.swing.JMenuItem();
-        jmi_admnistrador = new javax.swing.JMenuItem();
-        jmi_empleados = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
+        jmi_productos = new javax.swing.JMenuItem();
+        jmi_cargo = new javax.swing.JMenuItem();
+        jmi_empleados = new javax.swing.JMenuItem();
+        jmi_ventas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,17 +49,17 @@ public class ViewMain extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(226, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(312, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(138, Short.MAX_VALUE)
+                .addContainerGap(180, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Archivo");
@@ -65,45 +67,42 @@ public class ViewMain extends javax.swing.JFrame {
         jmi_login.setText("Login");
         jMenu1.add(jmi_login);
 
-        jmi_admnistrador.setText("Administrador");
-        jmi_admnistrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmi_admnistradorActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmi_admnistrador);
-
-        jmi_empleados.setText("Empleados");
-        jMenu1.add(jmi_empleados);
-
         jmi_salir.setText("Salir");
         jMenu1.add(jmi_salir);
 
-        jMenuBar1.add(jMenu1);
+        jmi_productos.setText("Registro de Productos");
+        jMenu1.add(jmi_productos);
 
-        setJMenuBar(jMenuBar1);
+        jmi_cargo.setText("Registro de Cargo");
+        jMenu1.add(jmi_cargo);
+
+        jmi_empleados.setText("Registro de Empleados");
+        jMenu1.add(jmi_empleados);
+
+        jmi_ventas.setText("Ventas");
+        jMenu1.add(jmi_ventas);
+
+        jMenu.add(jMenu1);
+
+        setJMenuBar(jMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jmi_admnistradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_admnistradorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmi_admnistradorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,12 +141,14 @@ public class ViewMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JMenuBar jMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    public javax.swing.JMenuItem jmi_admnistrador;
+    public javax.swing.JMenuItem jmi_cargo;
     public javax.swing.JMenuItem jmi_empleados;
     public javax.swing.JMenuItem jmi_login;
+    public javax.swing.JMenuItem jmi_productos;
     public javax.swing.JMenuItem jmi_salir;
+    public javax.swing.JMenuItem jmi_ventas;
     // End of variables declaration//GEN-END:variables
 }

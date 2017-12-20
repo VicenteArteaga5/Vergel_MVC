@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package models;
 
 import java.sql.Connection;
@@ -12,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -28,6 +26,7 @@ public class ModelRegistroProductos {
     private String nombre_producto;
     private String tamaño;
     private int precio_unitario;
+    private TableModel tabla;
     
     public void setProducto_ID(int producto_id){
         this.producto_id = producto_id;
@@ -60,17 +59,18 @@ public class ModelRegistroProductos {
     public int getPrecio_Unitario(){
         return precio_unitario;
     }
+
+    public TableModel getTabla() {
+        return tabla;
+    }
     
+        
     public void conectar(){
-        try{
-            Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Vergel","postgres","12345678");
-            st = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error 101");   
-        }
-        catch(ClassNotFoundException f){
-            JOptionPane.showMessageDialog(null,"error al conectar");
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/VergelActual", "root", "ninoinkieto1");
+            st = conexion.createStatement();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error 101 Prodcutos" + ex);
         }
     }
     
@@ -81,7 +81,19 @@ public class ModelRegistroProductos {
             setTamaño(rs.getString("tamaño"));
             setPrecio_Unitario(rs.getInt("precio_unitario"));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 102");   
+            JOptionPane.showMessageDialog(null,"Error 102 Prodcutos");   
+        }
+    }
+    
+    public void tabla(){
+    try{
+        conectar();
+        rs=st.executeQuery("Select * from Productos;");
+        tabla= DbUtils.resultSetToTableModel(rs);
+        seleccionarTodos();
+        llenarValores();
+    } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "Error " + err);
         }
     }
     
@@ -90,7 +102,7 @@ public class ModelRegistroProductos {
              rs.first();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 103");
+             JOptionPane.showMessageDialog(null,"Error 103 Prodcutos"+ex);
          }
      }
     public void moverUltimo(){
@@ -98,7 +110,7 @@ public class ModelRegistroProductos {
              rs.last();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 104");
+             JOptionPane.showMessageDialog(null,"Error 104 Prodcutos"+ex);
          }
      }
     
@@ -108,7 +120,7 @@ public class ModelRegistroProductos {
                  rs.next();
                  llenarValores();
          }} catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 105");
+             JOptionPane.showMessageDialog(null,"Error 105 Prodcutos"+ex);
          }
      }
     
@@ -118,18 +130,19 @@ public class ModelRegistroProductos {
                  rs.previous();
                  llenarValores();} 
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 106");
+             JOptionPane.showMessageDialog(null,"Error 106 Prodcutos"+ex);
          }
      }
     
     public void seleccionarTodos(){
         try {
+            conectar();
             sql="select * from Productos;";
             ps=conexion.prepareStatement(sql);
             rs=ps.executeQuery();
             moverPrimero();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 107");
+            JOptionPane.showMessageDialog(null,"Error 107 Prodcutos"+ex);
         }
     }
     
@@ -137,13 +150,12 @@ public class ModelRegistroProductos {
         try {
             sql="Insert into Productos(nombre_producto,tamaño,precio_unitario) values (?,?,?);";
             ps=conexion.prepareStatement(sql);
-            ps.setString(0,nombre_producto);
-            ps.setString(1,tamaño);
-            ps.setInt(2,precio_unitario);
-            ps.executeQuery();
-            moverPrimero();
+            ps.setString(1,nombre_producto);
+            ps.setString(2,tamaño);
+            ps.setInt(3,precio_unitario);
+            ps.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 108");
+            JOptionPane.showMessageDialog(null,"Error 108 Prodcutos"+ex);
         }
     }
     
@@ -151,14 +163,14 @@ public class ModelRegistroProductos {
         try {
             sql="update Productos SET nombre_producto=?, tamaño=?, precio_unitario=? WHERE producto_id=?;";
             ps=conexion.prepareStatement(sql);
-            ps.setString(0,nombre_producto);
-            ps.setString(1,tamaño);
-            ps.setInt(2,precio_unitario);
+            ps.setString(1,nombre_producto);
+            ps.setString(2,tamaño);
+            ps.setInt(3,precio_unitario);
+            ps.setInt(4, producto_id);
             ps.executeUpdate();
-            moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 109");
+            JOptionPane.showMessageDialog(null,"Error 109 Prodcutos"+ex);
         }
     }
     
@@ -166,12 +178,11 @@ public class ModelRegistroProductos {
         try {
             sql="delete from Productos where producto_id=?;";
             ps=conexion.prepareStatement(sql);
-            ps.setInt(0, producto_id);
+            ps.setInt(1, producto_id);
             ps.executeUpdate();
-            moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 110");
+            JOptionPane.showMessageDialog(null,"Error 110 Prodcutos"+ex);
         }
     }
 }

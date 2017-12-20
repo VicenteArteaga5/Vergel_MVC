@@ -19,14 +19,15 @@ public class ModelLogin {
     
     public void Verificar_Usuario(){
         try{
-            contraseña_usuario_s = model_main.Cifrar(contraseña_usuario_s, "Vergel");
-            model_main.setSql("SELECT COUNT(usuario)AS rol FROM Usuarios WHERE usuario = ? AND contraseña = ?;");
+            contraseña_usuario_s = model_main.Cifrar(contraseña_usuario_s, "md5");
+            model_main.setSql("SELECT COUNT(usuario)AS Verificado FROM Usuarios WHERE usuario=? AND contraseña=?;");
             model_main.Preparar_Statement();
             model_main.getSql_prepared_statement().setString(1, usuario);
             model_main.getSql_prepared_statement().setString(2, contraseña_usuario_s);
             model_main.Ejecutar_Consulta_PS();
             model_main.getSql_result_set().first();
-            if(model_main.getSql_result_set().getString("rol").equals("1")){
+            if(model_main.getSql_result_set().getString("Verificado").equals("1")){
+                Verificar_Tipo_Usuario();
                 JOptionPane.showMessageDialog(null, "Bienvenido " + usuario);
             }
             else{
@@ -34,7 +35,7 @@ public class ModelLogin {
             }
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos | Acceso Denegado");
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos | Acceso Denegado" + e);
         }
     }
     

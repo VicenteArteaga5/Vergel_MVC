@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package models;
 
 import java.sql.Connection;
@@ -12,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 public class ModelRegistroCargo {
     
@@ -23,6 +21,7 @@ public class ModelRegistroCargo {
     private ResultSet rs;
     private PreparedStatement ps;
     private String sql;
+    private TableModel tabla;
     
     public void setCargo_id(int cargo_id){
         this.cargo_id = cargo_id;
@@ -39,17 +38,17 @@ public class ModelRegistroCargo {
     public String getCargo(){
         return cargo;
     }
+
+    public TableModel getTabla() {
+        return tabla;
+    }
     
     public void conectar(){
-        try{
-            Class.forName("org.postgresql.Driver");
-            conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Vergel","postgres","12345678");
-            st = conexion.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLException ex){
-            JOptionPane.showMessageDialog(null,"Error 101");   
-        }
-        catch(ClassNotFoundException f){
-            JOptionPane.showMessageDialog(null,"error al conectar");
+        try {
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/VergelActual", "root", "ninoinkieto1");
+            st = conexion.createStatement();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error 101: No conceta la base de datos Cargo"+e);
         }
     }
     
@@ -58,7 +57,28 @@ public class ModelRegistroCargo {
             setCargo_id(rs.getInt("cargo_id"));
             setCargo(rs.getString("cargo"));
             } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 102");   
+            JOptionPane.showMessageDialog(null,"Error 102" + ex);   
+        }
+    }
+    public void seleccionarTodos(){
+        try {
+            conectar();
+            sql="select * from Cargo;";
+            ps=conexion.prepareStatement(sql);
+            rs=ps.executeQuery();
+            moverPrimero();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error 107"+ex);
+        }
+    }
+    
+        public void tabla(){
+    try{
+        conectar();
+        rs=st.executeQuery("Select * from Cargo;");
+        tabla= DbUtils.resultSetToTableModel(rs);
+    } catch (Exception err) {
+            JOptionPane.showMessageDialog(null, "Error " + err);
         }
     }
     
@@ -67,7 +87,7 @@ public class ModelRegistroCargo {
              rs.first();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 103");
+             JOptionPane.showMessageDialog(null,"Error 103"+ex);
          }
      }
     public void moverUltimo(){
@@ -75,7 +95,7 @@ public class ModelRegistroCargo {
              rs.last();
              llenarValores();
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 104");
+             JOptionPane.showMessageDialog(null,"Error 104"+ex);
          }
      }
     
@@ -84,8 +104,9 @@ public class ModelRegistroCargo {
              if(rs.isLast() ==false){
                  rs.next();
                  llenarValores();
+                 
          }} catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 105");
+             JOptionPane.showMessageDialog(null,"Error 105"+ex);
          }
      }
     
@@ -95,30 +116,20 @@ public class ModelRegistroCargo {
                  rs.previous();
                  llenarValores();} 
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null,"Error 106");
+             JOptionPane.showMessageDialog(null,"Error 106"+ex);
          }
      }
     
-    public void seleccionarTodos(){
-        try {
-            sql="select * from Productos;";
-            ps=conexion.prepareStatement(sql);
-            rs=ps.executeQuery();
-            moverPrimero();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 107");
-        }
-    }
+    
     
     public void guardar(){
         try {
             sql="Insert into Cargo(cargo) values (?);";
             ps=conexion.prepareStatement(sql);
             ps.setString(1,cargo);
-            ps.executeQuery();
-            moverPrimero();
+            ps.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 108");
+            JOptionPane.showMessageDialog(null,"Error 108"+ex);
         }
     }
     
@@ -127,11 +138,11 @@ public class ModelRegistroCargo {
             sql="update Cargo SET cargo=? WHERE cargo_id=?;";
             ps=conexion.prepareStatement(sql);
             ps.setString(1,cargo);
+            ps.setInt(2, cargo_id);
             ps.executeUpdate();
-            moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 109");
+            JOptionPane.showMessageDialog(null,"Error 109"+ex);
         }
     }
     
@@ -139,12 +150,11 @@ public class ModelRegistroCargo {
         try {
             sql="delete from Cargo where cargo_id=?;";
             ps=conexion.prepareStatement(sql);
-            ps.setString(1, cargo);
+            ps.setInt(1, cargo_id);
             ps.executeUpdate();
-            moverPrimero();
             seleccionarTodos();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error 110");
+            JOptionPane.showMessageDialog(null,"Error 110"+ex);
         }
     }
     
